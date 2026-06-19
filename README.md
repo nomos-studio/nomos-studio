@@ -7,13 +7,13 @@ environment built on Clojure, C++20, and Ableton Link.
 
 | Component | Role |
 |-----------|------|
-| [nous](https://github.com/rodgert/nous) | Compositional surface — Clojure nREPL, theory engine, live loops |
-| [nomos-rt](https://github.com/rodgert/nomos-rt) | C++ substrate — Link peer, MIDI/OSC I/O |
-| [alembic](https://github.com/rodgert/alembic) | DSP authoring DSL — defpatch! → CLAP/WASM via Faust |
-| [kairos](https://github.com/rodgert/kairos) | CLAP host + nomos-rt integration |
-| [aion](https://github.com/rodgert/aion) | Lightweight standalone peer (nomos-rt, no CLAP) |
+| [nous](https://github.com/nomos-studio/nous) | Compositional surface — Clojure nREPL, theory engine, live loops |
+| [nomos-rt](https://github.com/nomos-studio/nomos-rt) | C++ substrate — Link peer, MIDI/OSC I/O |
+| [alembic](https://github.com/nomos-studio/alembic) | DSP authoring DSL — defpatch! → CLAP/WASM via Faust |
+| [kairos](https://github.com/nomos-studio/kairos) | CLAP host + nomos-rt integration |
+| [aion](https://github.com/nomos-studio/aion) | Lightweight standalone peer (nomos-rt, no CLAP) |
 | [txlog](https://github.com/nomos-studio/txlog) | Session transaction log (SQLite + EDN) |
-| [edn-cpp](https://github.com/rodgert/edn-cpp) | Standalone C++20 EDN parser/emitter |
+| [edn-cpp](https://github.com/nomos-studio/edn-cpp) | Standalone C++20 EDN parser/emitter |
 
 ## Quick start
 
