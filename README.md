@@ -59,7 +59,7 @@ component repo, install it:
 cp scripts/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
 ```
 
-Run this once per repo. The hook is a no-op on repos with no C++ files.
+Run this once per repo. The clang-format check is skipped on repos with no C++ files; secret and personal-path checks apply everywhere.
 
 ## Layout
 
