@@ -49,6 +49,18 @@ bin/nomos-studio lock --update
 git add components.lock && git commit -m "chore: update component lock"
 ```
 
+## Development setup
+
+Each component repo ships a `scripts/pre-commit` hook that blocks secrets,
+hardcoded personal paths, and C++ formatting violations. After cloning a
+component repo, install it:
+
+```sh
+cp scripts/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+```
+
+Run this once per repo. The hook is a no-op on repos with no C++ files.
+
 ## Layout
 
 ```
