@@ -61,9 +61,22 @@ cp scripts/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
 
 Run this once per repo. The clang-format check is skipped on repos with no C++ files; secret and personal-path checks apply everywhere.
 
+## Documentation
+
+System-level design documents live in `doc/` — concerns that cross component
+boundaries and don't belong in any single component repo.
+
+| Document | Contents |
+|----------|----------|
+| [`doc/design-architecture.md`](doc/design-architecture.md) | Component roles, peer protocol, three-host studio topology, kairos as declared CLAP host, surface model |
+| [`doc/design-decisions-open.md`](doc/design-decisions-open.md) | Cross-component open questions (kairos CLAP GUI, Surge XT preset bridge, OSC peer subscription, surface adapters) |
+
+Component-internal design documents live in each component's own `doc/` directory.
+
 ## Layout
 
 ```
+doc/                — system-level design documents
 install.sh          — build + install everything to PREFIX
 bin/nomos-studio    — start script (installed to PREFIX/bin/)
 components.lock     — pinned component SHAs for this release
