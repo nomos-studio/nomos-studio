@@ -2,23 +2,61 @@
 # nomos-studio bootstrap
 #
 # Locates Fennel (bundled distribution first, system PATH fallback) then
-# hands off to nomos-studio.fnl. This is the only shell script in the
-# product; everything else is Fennel/Lua. Bundled Fennel + LuaJIT live at
-# $PREFIX/bin/ once install.sh has run; until then, system fennel is used.
+# runs nomos-studio.fnl. The sh layer exists for two reasons:
+#   1. Something must find the Fennel runtime before Fennel can run.
+#   2. POSIX sh trap handles SIGINT/SIGTERM so spawned processes are
+#      cleaned up on Ctrl-C; Fennel/LuaJIT has no signal primitives.
+#
+# PIDs are written to PIDS_FILE by nomos-studio.fnl; cleanup() kills them.
+# 'nomos-studio stop' kills a running instance without needing the parent.
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PREFIX="${NOMOS_PREFIX:-$HOME/.local/nomos-studio}"
+PIDS_FILE="${TMPDIR:-/tmp}/nomos-studio.pids"
 
+# ── locate Fennel ──────────────────────────────────────────────────────────
 FENNEL="${PREFIX}/bin/fennel"
 if [ ! -x "$FENNEL" ]; then
   FENNEL="$(command -v fennel 2>/dev/null)"
 fi
-
 if [ -z "$FENNEL" ] || [ ! -x "$FENNEL" ]; then
   printf '[nomos-studio] fennel not found\n' >&2
-  printf '  install nomos-studio (for bundled fennel), or:\n' >&2
-  printf '  brew install fennel\n' >&2
+  printf '  install nomos-studio (bundled fennel), or: brew install fennel\n' >&2
   exit 1
 fi
 
-exec "$FENNEL" "${SCRIPT_DIR}/nomos-studio.fnl" "$@"
+# ── signal handling ────────────────────────────────────────────────────────
+cleanup() {
+  if [ -f "$PIDS_FILE" ]; then
+    while IFS= read -r pid; do
+      kill "$pid" 2>/dev/null
+    done < "$PIDS_FILE"
+    rm -f "$PIDS_FILE"
+  fi
+}
+trap cleanup INT TERM EXIT
+
+# ── subcommands ────────────────────────────────────────────────────────────
+case "${1:-}" in
+  stop)
+    if [ -f "$PIDS_FILE" ]; then
+      cleanup
+    else
+      pkill -f "mix phx.server" 2>/dev/null
+      pkill -f "nomos-tauri"    2>/dev/null
+    fi
+    printf '[nomos-studio] stopped\n'
+    exit 0
+    ;;
+  --help|-h)
+    printf 'Usage: nomos-studio [--headless] [--help]\n'
+    printf '       nomos-studio stop\n'
+    printf '  --headless   start BEAM only; no Tauri window\n'
+    printf '  stop         stop a running instance\n'
+    exit 0
+    ;;
+esac
+
+# ── launch ─────────────────────────────────────────────────────────────────
+# Note: not exec — sh stays alive to run the EXIT trap on Ctrl-C.
+"$FENNEL" "${SCRIPT_DIR}/nomos-studio.fnl" "$@"

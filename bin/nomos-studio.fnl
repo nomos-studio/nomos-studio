@@ -16,6 +16,10 @@
 (local io io)
 (local math math)
 
+;;; ── constants ────────────────────────────────────────────────────────────
+
+(local PIDS-FILE (.. (or (os.getenv "TMPDIR") "/tmp") "/nomos-studio.pids"))
+
 ;;; ── utilities ────────────────────────────────────────────────────────────
 
 (fn log [msg]
@@ -48,6 +52,13 @@
             (os.remove pid-file)
             (tonumber pid-str))
           nil))))
+
+;; Append a PID to the pids file so the sh bootstrap can clean up on exit.
+(fn record-pid [pid]
+  (let [f (io.open PIDS-FILE :a)]
+    (when f
+      (f:write (tostring pid) "\n")
+      (f:close))))
 
 ;; Kill a PID with SIGTERM.
 (fn kill-pid [pid]
@@ -140,6 +151,7 @@
 
   (when (not beam-pid)
     (die "failed to spawn nomos_beam"))
+  (record-pid beam-pid)
   (log (.. "nomos_beam PID " (tostring beam-pid)))
 
   (if opts.headless
@@ -156,6 +168,7 @@
           (when (not tauri-pid)
             (kill-pid beam-pid)
             (die "failed to spawn nomos-tauri"))
+          (record-pid tauri-pid)
           (log (.. "nomos-tauri PID " (tostring tauri-pid)))
           (while (running? tauri-pid)
             (os.execute "sleep 1"))
