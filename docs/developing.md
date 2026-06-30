@@ -434,6 +434,19 @@ bridge, and verify ctrl-tree round-trips. They are excluded from the default
 
 ## Code conventions
 
+### Repository and directory naming
+
+Naming follows toolchain conventions within each language ecosystem:
+
+- **Elixir/Mix** (e.g., `nomos_beam`): **underscore**. Mix project names and OTP
+  application atoms cannot contain hyphens; the directory name matches the app atom.
+- **Everything else** (Rust, C++, Clojure, data): **hyphen**. `nomos-tauri`,
+  `nomos-rt`, `nomos-maths`, `nomos-studio` follow the broader ecosystem convention
+  where hyphens are the natural word separator in repo and package names.
+
+The split is intentional and toolchain-native, not an inconsistency. When adding a
+new component, follow the convention for its primary language.
+
 ### Elixir (nomos_beam)
 
 - Standard mix format: `mix format` before committing.
