@@ -5,7 +5,8 @@ SPDX-PackageDownloadLocation = "https://github.com/nomos-studio/nomos-studio"
 
 [[annotations]]
 path = ["bin/**", "scripts/**", "docs/**", "doc/**",
-        "README.md", "install.sh", "components.lock", ".gitignore"]
+        "README.md", "install.sh", "components.lock", ".gitignore",
+        "CMakeLists.txt", "CMakePresets.json", "Makefile"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2025-2026 nomos-studio contributors"
 SPDX-License-Identifier = "EPL-2.0"

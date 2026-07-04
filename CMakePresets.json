@@ -1,0 +1,48 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "FETCHCONTENT_UPDATES_DISCONNECTED": "ON"
+      }
+    },
+    {
+      "name": "dev",
+      "inherits": "base",
+      "displayName": "Development build",
+      "description": "Debug build; all components from local checkouts",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release",
+      "inherits": "base",
+      "displayName": "Release build",
+      "description": "Release build; all components from local checkouts",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "ci",
+      "inherits": "base",
+      "displayName": "CI build",
+      "description": "Release build; components resolved from components.lock SHAs",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "NOMOS_FORCE_FETCH": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "dev",     "configurePreset": "dev" },
+    { "name": "release", "configurePreset": "release" },
+    { "name": "ci",      "configurePreset": "ci" }
+  ]
+}
