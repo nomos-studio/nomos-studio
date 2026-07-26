@@ -33,7 +33,7 @@ header/module that defines the message vocabulary). This index links each.
 
 | Boundary | Parties | Transport | Owner | Protocol doc | Status |
 |---|---|---|---|---|---|
-| **NousPort / BEAM** | nous (EPL) ↔ nomos_beam (AGPL) | Erlang distribution | nomos_beam | [`nomos_beam/doc/protocol-nousport.md`](../../nomos_beam/doc/protocol-nousport.md) | **documented** |
+| **NousPort / BEAM** | nous (EPL) ↔ nomos_beam (AGPL) | Erlang distribution | nomos_beam | [`nomos_beam/guides/protocol-nousport.md`](../../nomos_beam/guides/protocol-nousport.md) | **documented** |
 | **nomos-rt IPC** | nous / aion / kairos ↔ nomos-rt | Unix socket / TCP, framed EDN | nomos-rt | [`nomos-rt/doc/protocol-ipc.md`](../../nomos-rt/doc/protocol-ipc.md) | **documented** |
 | **kairos CLAP bus** | kairos host ↔ CLAP plugins; kairos ↔ kairos-grid | CLAP extensions (param / tap / patch bus) | kairos | `kairos/doc/protocol-clap-bus.md` | *to document* |
 | **txlog format** | txlog writers ↔ readers (cl / clj / cpp clients) | on-disk / streamed log records | txlog | `txlog/doc/protocol-txlog.md` | *to document* |
