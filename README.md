@@ -140,3 +140,20 @@ join as named nodes through the same protocol.
 | [User guide](docs/user-guide.md) | Patch designer, cables, arcs, hardware, multi-node |
 | [Developing](docs/developing.md) | Build from source, architecture, contributing |
 | [doc/design-architecture.md](doc/design-architecture.md) | System design reference |
+| [doc/component-boundaries.md](doc/component-boundaries.md) | Cross-process protocols between components |
+
+---
+
+## Licensing
+
+nomos-studio is a set of independently-licensed components coordinated into a product.
+**The integrated platform is AGPL-3.0-or-later** — governed by its network keystone,
+`nomos_beam` (the BEAM/OTP/Phoenix coordination and UI layer) — while every component
+remains usable on its own under its own OSI licence (nous EPL-2.0, native DSP LGPL/GPL,
+…). A commercial licence to `nomos_beam` removes the AGPL obligation for closed /
+proprietary-SaaS deployment.
+
+The full statement, the separability rationale, and the per-component licence table are
+in **[LICENSING.md](LICENSING.md)**. Why the AGPL stays contained at the keystone —
+IPC/process boundaries over documented protocols — is in
+**[doc/component-boundaries.md](doc/component-boundaries.md)**.
