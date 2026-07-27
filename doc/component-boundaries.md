@@ -35,8 +35,8 @@ header/module that defines the message vocabulary). This index links each.
 |---|---|---|---|---|---|
 | **NousPort / BEAM** | nous (EPL) ↔ nomos_beam (AGPL) | Erlang distribution | nomos_beam | [`nomos_beam/guides/protocol-nousport.md`](../../nomos_beam/guides/protocol-nousport.md) | **documented** |
 | **nomos-rt IPC** | nous / aion / kairos ↔ nomos-rt | Unix socket / TCP, framed EDN | nomos-rt | [`nomos-rt/doc/protocol-ipc.md`](../../nomos-rt/doc/protocol-ipc.md) | **documented** |
-| **kairos CLAP bus** | kairos host ↔ CLAP plugins; kairos ↔ kairos-grid | CLAP extensions (param / tap / patch bus) | kairos | `kairos/doc/protocol-clap-bus.md` | *to document* |
-| **txlog format** | txlog writers ↔ readers (cl / clj / cpp clients) | on-disk / streamed log records | txlog | `txlog/doc/protocol-txlog.md` | *to document* |
+| **kairos CLAP bus** | kairos host ↔ CLAP plugins; kairos ↔ kairos-grid | CLAP extensions (param / tap / patch bus) | kairos | [`kairos/doc/protocol-clap-bus.md`](../../kairos/doc/protocol-clap-bus.md) | **documented** |
+| **txlog format** | txlog writers ↔ readers (cpp / clj / cl clients) | SQLite + EDN (`changes` table) | txlog | [`txlog/doc/protocol-txlog.md`](../../txlog/doc/protocol-txlog.md) | **documented** |
 | **aion sidecar block** | aion ↔ clients (original `0x00`–`0x2F` opcodes) | Unix socket, framed EDN | nomos-rt / aion | (folds into nomos-rt IPC) | *to document* |
 
 The **NousPort / BEAM** boundary is the product's copyleft boundary: it is where the
@@ -45,7 +45,7 @@ distribution, so the AGPL is contained. Its doc states this explicitly.
 
 ## Follow-on
 
-The `kairos` CLAP bus and the `txlog` format are enumerated above and will be
-documented in their owning repos under the same convention, then linked here. Until
-then, their message vocabularies live in code — `kairos` param/tap/patch bus
-extensions, and the `txlog` record format shared across its cl/clj/cpp clients.
+One boundary remains undocumented: the **aion sidecar block** — the original
+`0x00`–`0x2F` IPC opcode range that predates (and is extended by) the nomos-rt `0x30+`
+block. It folds into the nomos-rt IPC doc when specified; its vocabulary currently
+lives in the aion/sidecar source.
