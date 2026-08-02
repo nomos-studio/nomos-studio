@@ -37,15 +37,14 @@ header/module that defines the message vocabulary). This index links each.
 | **nomos-rt IPC** | nous / aion / kairos ↔ nomos-rt | Unix socket / TCP, framed EDN | nomos-rt | [`nomos-rt/doc/protocol-ipc.md`](../../nomos-rt/doc/protocol-ipc.md) | **documented** |
 | **kairos CLAP bus** | kairos host ↔ CLAP plugins; kairos ↔ kairos-grid | CLAP extensions (param / tap / patch bus) | kairos | [`kairos/doc/protocol-clap-bus.md`](../../kairos/doc/protocol-clap-bus.md) | **documented** |
 | **txlog format** | txlog writers ↔ readers (cpp / clj / cl clients) | SQLite + EDN (`changes` table) | txlog | [`txlog/doc/protocol-txlog.md`](../../txlog/doc/protocol-txlog.md) | **documented** |
-| **aion sidecar block** | aion ↔ clients (original `0x00`–`0x2F` opcodes) | Unix socket, framed EDN | nomos-rt / aion | (folds into nomos-rt IPC) | *to document* |
 
 The **NousPort / BEAM** boundary is the product's copyleft boundary: it is where the
 AGPL `nomos_beam` keystone meets the EPL `nous` engine, arms-length over Erlang
 distribution, so the AGPL is contained. Its doc states this explicitly.
 
-## Follow-on
-
-One boundary remains undocumented: the **aion sidecar block** — the original
-`0x00`–`0x2F` IPC opcode range that predates (and is extended by) the nomos-rt `0x30+`
-block. It folds into the nomos-rt IPC doc when specified; its vocabulary currently
-lives in the aion/sidecar source.
+Every cross-process boundary is documented; there are no outstanding undocumented
+boundaries. (aion and kairos are *parties* to the nomos-rt IPC boundary, not separate
+boundaries: the nomos-rt IPC vocabulary begins at `0x30`, and each node's extra opcodes
+are handled by a `dispatch_extension` override documented in that protocol. The
+`0x00`–`0x2F` range referenced in older notes is a vestige of pre-`nomos-rt` numbering —
+no such opcodes exist in the codebase.)
